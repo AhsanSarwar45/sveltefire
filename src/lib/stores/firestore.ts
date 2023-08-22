@@ -128,13 +128,23 @@ export function collectionStore<T>(
 }
 
 
-export const getCollectionStoreValue = <T>(store: CollectionStore<T>): T => {
-  let value;
-  store.subscribe((val: T) => (value = val))();
-  return value as T;
+export const getCollectionValue = <T>(
+  firestore: Firestore,
+  ref: string | Query<T> | CollectionReference<T>,
+  startWith: T[] | undefined = undefined
+): T[] => {
+  const store = collectionStore<T>(firestore, ref, startWith);
+  let value : T[];
+  store.subscribe((val: T[]) => (value = val))();
+  return value;
 };
 
-export const getDocStoreValue = <T>(store: DocStore<T>): T => {
+export const getDocValue = <T>(
+  firestore: Firestore,
+  ref: string | DocumentReference<T>,
+  startWith?: T
+): T => {
+  const store = docStore<T>(firestore, ref, startWith)
   let value;
   store.subscribe((val: T) => (value = val))();
   return value as T;
