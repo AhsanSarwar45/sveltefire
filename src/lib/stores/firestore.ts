@@ -83,7 +83,7 @@ interface CollectionStore<T> {
 export function collectionStore<T>(
   firestore: Firestore,
   ref: string | Query<T> | CollectionReference<T>,
-  startWith: T[] = []
+  startWith: T[] | undefined = undefined
 ): CollectionStore<T[]> {
   let unsubscribe: () => void;
 
