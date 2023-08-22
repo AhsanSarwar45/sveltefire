@@ -126,3 +126,16 @@ export function collectionStore<T>(
     ref: colRef,
   };
 }
+
+
+export const getCollectionStoreValue = <T>(store: CollectionStore<T>): T => {
+  let value;
+  store.subscribe((val: T) => (value = val))();
+  return value as T;
+};
+
+export const getDocStoreValue = <T>(store: DocStore<T>): T => {
+  let value;
+  store.subscribe((val: T) => (value = val))();
+  return value as T;
+};
